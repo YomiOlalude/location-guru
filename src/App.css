@@ -1,0 +1,186 @@
+body {
+  background-color:white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.locations {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.location p {
+  padding: 5px;
+  margin: 0;
+  border-bottom: rgb(219, 219, 219) solid 1px;
+  font-size: 14px;
+  color: grey;
+}
+
+.location {
+  margin: 20px;
+  border: solid rgb(255, 200, 238) 1px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.location:hover {
+    border: solid rgb(126, 126, 126) 1px;
+
+}
+
+.cities {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.cities p {
+  padding: 5px;
+  margin: 0;
+  border-bottom: rgb(219, 219, 219) solid 1px;
+  font-size: 14px;
+  color: grey;
+}
+
+.city {
+  margin: 20px;
+  border: solid rgb(255, 200, 238) 1px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.city:hover {
+  border: solid rgb(126, 126, 126) 1px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 20vw;
+  height: 30px;
+  border: rgb(218, 218, 218) solid 1px;
+  border-radius: 10px;
+}
+
+.form-control-container select {
+  display: block;
+  text-align: center;
+  margin-top: 3px;
+  outline: none;
+}
+.form-control-container input {
+  display: block;
+  text-align: center;
+  outline: none;
+  margin-top: 3px;
+  height: 26px;
+}
+
+label {
+  color: grey;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: purple;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  color: black;
+  background-color: rgb(247, 247, 247);
+  border-width: 0;
+  font-size: 0.8rem;
+  outline: none;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.btn-primary:hover {
+  background-color: rgb(255, 230, 245);
+}
+
+.btn-primary:active {
+  background-color: rgb(255, 176, 176);
+}
+
+.city .city-location {
+  font-size: 12px;
+}
+
+.header-link {
+  text-decoration: none;
+  color:black;
+}
+.header-link-home {
+  text-decoration: none;
+  color:black;
+  border: solid rgb(194, 194, 194) 1px;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  width: 40vw;
+}
+
+.home-link {
+  text-decoration: none;
+}
+
+.header-link:hover {
+  color:purple;
+  text-decoration: none;
+}
+.header-link-home:hover {
+  color:purple;
+  border: solid black 1px;
+}
+
+.card {
+  width: 25vw;
+}
+
+.building {
+  color: gray;
+}
+
+.location-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.home-container {
+  text-align: center;
+  padding: 20px;
+  margin: 70px auto;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 2.5rem;
+  color: rgb(83, 0, 83);
+}
+
+.single-page-name {
+  font-size: 12px;
+  color: gray;
+}
+
+.location-container div {
+  border-bottom: solid rgb(216, 216, 216) 1px;
+  padding: 20px;
+}
+
+.single-page-value {
+  font-size: 15px;
+  font-style: italic;
+}
