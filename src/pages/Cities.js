@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import dataCities from "../dataCities";
 import City from '../components/City';
+import CreateCity from "../components/CreateCity"
 
 export default class Cities extends Component {
     constructor(props) {
@@ -11,18 +11,38 @@ export default class Cities extends Component {
             locations: [],
             code: "All",
             name: "All",
-            time_added: "",
+            timeAdded: "",
         }
     }
 
     componentDidMount() {
-        let cities = dataCities
-
-        this.setState({
-            cities,
-            filteredCities: cities,
-        })
+        fetch("https://api.photodino.com/locations/cities/")
+            .then(response => response.json())
+            .then(cities => this.setState({
+                cities: cities.reverse(),
+                filteredCities: cities, 
+            }))
     }
+
+    deleteCity = (cityID) => {
+        if (window.confirm("Are you sure you want to delete this Location?")) {
+            const requestOptions = {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                }
+            }
+
+        fetch(`https://api.photodino.com/locations/cities/${cityID}`, requestOptions)
+            .then(response => response.json())
+            .then(cities => this.setState({
+                cities: cities.reverse()
+            }))
+        }
+        
+    }
+
 
     filterCities() {
         let {
@@ -50,23 +70,18 @@ export default class Cities extends Component {
             })
         }
 
-
         this.setState({
             cities: tempCities,
         })
     }
 
-     handleChange = (event)  => {
+    handleChange = (event)  => {
         const target = event.target;
         const value = target.value;
         const name = event.target.name;
         this.setState({
             [name]: value,
         }, this.filterCities)
-    }
-
-     deleteCity = (cityRemove) => {
-        this.setState({cities: this.state.cities.filter(city => city !== cityRemove)})
     }
 
     render() {
@@ -95,6 +110,10 @@ export default class Cities extends Component {
             
             <section>
                 <h1 className="title" >Cities</h1>
+                    <CreateCity
+                        cities={this.state.cities}
+                        onAddCity={() => this.componentDidMount()}
+                    />
                     <div className="filter-container" >  
                         <div className="form-control-container" >
                             <label htmlFor="name">
@@ -120,7 +139,7 @@ export default class Cities extends Component {
                 <div className="cities" >
                     {this.state.cities.map(city => {
                         let slug = String(city.id)
-                        let time = new Date(city.time_added)
+                        let time = new Date(city.timeAdded)
                         let locations = city.locations.map(location => {
                             return location + " , "
                         })
@@ -130,8 +149,8 @@ export default class Cities extends Component {
                             name={city.name}
                             locations={locations}
                             code={city.code}
-                            time_added={time.toDateString()}
-                            deleteCity={() => this.deleteCity(city)}
+                            timeAdded={time.toDateString()}
+                            deleteCity={() => this.deleteCity(city.id)}
                             />
                     })}
                 </div>

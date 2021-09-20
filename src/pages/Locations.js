@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import dataLocations from "../dataLocations";
+// import dataLocations from "../dataLocations";
 import Location from '../components/Location';
-
+import CreateLocation from '../components/CreateLocation';
 export default class Locations extends Component {
     constructor(props) {
         super(props);
@@ -19,19 +19,45 @@ export default class Locations extends Component {
             street_name: "",
             postal_code: "",
             available: false,
-            time_added: "",
+            timeAdded: "",
             city: "All",
-            city_ids: []
         }
     }
 
     componentDidMount() {
-        let locations = dataLocations
+        fetch("https://api.photodino.com/locations/locations/")
+            .then(response => response.json())
+            .then(locations => this.setState({
+                locations: locations.reverse(),
+                filteredLocations: locations, 
+            }))
+    }
 
-        this.setState({
-            locations,
-            filteredLocations: locations,
-        })
+    refreshLocations() {
+      fetch("https://api.photodino.com/locations/locations/")
+            .then(response => response.json())
+            .then(locations => this.setState({
+                    locations: locations.reverse(),
+            }))
+    }
+
+    deleteLocation = (locationID) => {
+        if (window.confirm("Are you sure you want to delete this Location?")) {
+            const requestOptions = {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                }
+            }
+
+            fetch(`https://api.photodino.com/locations/locations/${locationID}`, requestOptions)
+            .then(response => response.json())
+            .then(locations => this.setState({
+                locations: locations.filter(location => location !== locationID)
+            }))
+        }
+        
     }
 
     filterLocations() {
@@ -77,10 +103,6 @@ export default class Locations extends Component {
         }, this.filterLocations)
     }
 
-    deleteLocation = (locationRemove) => {
-        this.setState({locations: this.state.locations.filter(location => location !== locationRemove)})
-    }
-
     render() {
 
         let names = [...new Set(this.state.filteredLocations.map(filteredLocation => filteredLocation.name))]
@@ -117,6 +139,10 @@ export default class Locations extends Component {
             
             <section>
                 <h1 className="title" >Locations</h1>
+                <CreateLocation
+                    locations={this.state.locations}
+                    onAddLocation={() => this.componentDidMount()}
+                />
                 <div className="filter-container" >
                     <div className="form-control-container">
                         <label htmlFor="name">
@@ -164,10 +190,10 @@ export default class Locations extends Component {
                             street_name={location.street_name}
                             postal_code={location.postal_code}
                             status={location.status}
-                            time_added={location.time_added}
+                            timeAdded={location.timeAdded}
                             city={location.city}
                             getLocation={() => this.getLocation(slug)}
-                            deleteLocation={() => this.deleteLocation(location)}
+                            deleteLocation={() => this.deleteLocation(location.id)}
                             />
                     })}
                 </div>
