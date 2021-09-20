@@ -20,7 +20,7 @@ export default class Locations extends Component {
             postal_code: "",
             available: false,
             timeAdded: "",
-            city: "All",
+            city: 0,
         }
     }
 
@@ -30,14 +30,6 @@ export default class Locations extends Component {
             .then(locations => this.setState({
                 locations: locations.reverse(),
                 filteredLocations: locations, 
-            }))
-    }
-
-    refreshLocations() {
-      fetch("https://api.photodino.com/locations/locations/")
-            .then(response => response.json())
-            .then(locations => this.setState({
-                    locations: locations.reverse(),
             }))
     }
 
@@ -52,12 +44,10 @@ export default class Locations extends Component {
             }
 
             fetch(`https://api.photodino.com/locations/locations/${locationID}`, requestOptions)
-            .then(response => response.json())
-            .then(locations => this.setState({
-                locations: locations.filter(location => location !== locationID)
-            }))
+                .then((response) => {
+                    this.componentDidMount()
+            })
         }
-        
     }
 
     filterLocations() {
@@ -125,7 +115,7 @@ export default class Locations extends Component {
          )
         })
 
-        let cities = [...new Set(this.state.filteredLocations.map(filteredLocation => filteredLocation.city))]
+        let cities = Array.from({ length: 100 }, (_, i) => i + 1)
         cities = ["All", ...cities];
         cities = cities.map((city, index) => {
         return (
@@ -148,7 +138,7 @@ export default class Locations extends Component {
                         <label htmlFor="name">
                             Name:
                         </label>
-                        <select name="name" id="genre" value={this.props.name}
+                        <select name="name" id="name" value={this.props.name}
                             className="form-control" onChange={this.handleChange}>
                             {names}
                         </select>

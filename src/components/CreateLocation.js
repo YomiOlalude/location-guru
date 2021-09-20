@@ -17,14 +17,13 @@ class CreateLocation extends Component {
                 postalCode: "",
                 status: "",
                 timeAdded: "",
-                city: 1,
+                city: 0,
         }
     }
 
     handleInputChange = (event) => {
         const target = event.target;
         const name = target.name;
-
         this.setState({
             [name]: target.value
         });
@@ -124,13 +123,6 @@ class CreateLocation extends Component {
                     <input type="text" name="postalCode" id="postal-code" value={this.state.postalCode} onChange={this.handleInputChange} className="new-location-input">
                     </input>
                 </div>
-                {/* <div className="new-location-wrap">
-                    <label htmlFor="time-added" >
-                        Time Added
-                    </label>
-                    <input type="date" name="timeAdded" id="time-added" value={this.state.timeAdded} onChange={this.handleInputChange} className="new-location-input">
-                    </input>
-                </div> */}
                 <div className="new-location-wrap">
                     <label htmlFor="city" >
                         City

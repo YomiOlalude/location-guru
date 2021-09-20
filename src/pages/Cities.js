@@ -35,10 +35,9 @@ export default class Cities extends Component {
             }
 
         fetch(`https://api.photodino.com/locations/cities/${cityID}`, requestOptions)
-            .then(response => response.json())
-            .then(cities => this.setState({
-                cities: cities.reverse()
-            }))
+            .then((response) => {
+                this.componentDidMount()
+            })
         }
         
     }
